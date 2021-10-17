@@ -1,0 +1,76 @@
+<div class="container-fluid">
+    <div class="row mt-2">
+        <h4 class="col-9">Inventory Details</h4>
+        <div class="col-3 d-flex justify-content-end">
+            <button  class="btn btn-primary backpurple" (click)="addInventory();">Add Inventory</button> 
+        </div>        
+    </div>  
+  <div class="row col-12 mt-2">    
+    <p-table [value]="inventoryList" dataKey="id" editMode="row" responsiveLayout="scroll"
+    [paginator]="true" [rows]="rows" [showCurrentPageReport]="true" [(first)]="first"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Vendor</th>
+                <th style="width:8rem"></th>
+                <th style="width:20rem"></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product let-editing="editing" let-ri="rowIndex">
+            <tr [pEditableRow]="product">
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="product.name">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{product.name}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="product.description" required>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{product.description}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">                        
+                            <p-inputNumber [(ngModel)]="product.price"></p-inputNumber>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{product.price | currency:'INR'}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="product.vendor" required>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{product.vendor}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="text-align:center">
+                    <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(product)" class="p-button-rounded p-button-text"></button>
+                    <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(product)" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
+                    <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(product, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                </td>
+                <td style="text-align:center">
+                    <button  class="btn btn-primary backpurple" (click)="deleteInventory(product);">Delete</button> 
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+  </div>
+</div>

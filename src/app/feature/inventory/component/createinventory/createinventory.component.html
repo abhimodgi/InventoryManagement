@@ -1,0 +1,50 @@
+<div class="container-fluid">
+    <div class="row">
+       <div class="col-9">
+           <h4>Add Inventory</h4>
+       </div>
+       <div class="col-3 justify-content-end d-flex">
+          <a [routerLink]="['/inventory/list']" class="colorpurple">Back to List</a>
+       </div>
+    </div>
+    <form [formGroup]="inventoryForm">
+        <div class="form-group">
+          <label for="invName">Name</label>
+          <input type="text" class="form-control" formControlName="invName" id="invName" aria-describedby="emailHelp">      
+          <div *ngIf="inventoryForm.controls['invName'].invalid && inventoryForm.controls['invName'].touched" class="alert alert-danger mt-2">
+            <div *ngIf="inventoryForm.controls['invName'].errors.required">
+            Name is required.
+          </div>
+        </div>
+        </div>
+        <div class="form-group">
+          <label for="invDesc">Description</label>
+          <input type="text" class="form-control" formControlName="invDesc" id="invDesc">
+          <div *ngIf="inventoryForm.controls['invDesc'].invalid && inventoryForm.controls['invDesc'].touched" class="alert alert-danger mt-2">
+            <div *ngIf="inventoryForm.controls['invDesc'].errors.required">
+            Description is required.
+          </div>
+        </div>
+        </div>
+        <div class="form-group">
+            <label for="invPrice">Price</label>
+            <input type="number" class="form-control" formControlName="invPrice" id="invPrice">
+            <div *ngIf="inventoryForm.controls['invPrice'].invalid && inventoryForm.controls['invPrice'].touched" class="alert alert-danger mt-2">
+                <div *ngIf="inventoryForm.controls['invPrice'].errors.required">
+                Price is required.
+              </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="invVen">Vendor</label>
+            <input type="text" class="form-control" formControlName="invVen" id="invVen">
+            <div *ngIf="inventoryForm.controls['invVen'].invalid && inventoryForm.controls['invVen'].touched" class="alert alert-danger mt-2">
+                <div *ngIf="inventoryForm.controls['invVen'].errors.required">
+                Vendor is required.
+              </div>
+            </div>
+        </div>
+        <button type="submit" (click)="addInventory()" class="btn btn-primary mt-2 backpurple" [disabled]="!inventoryForm.valid">Submit</button>
+      </form>    
+</div>
+
